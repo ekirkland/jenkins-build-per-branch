@@ -14,7 +14,11 @@ class GitApi {
             String branchNameRegex = "^.*\trefs/heads/(.*)\$"
             String branchName = line.find(branchNameRegex) { full, branchName -> branchName }
             Boolean selected = passesFilter(branchName)
-            println "\t" + (selected ? "* " : "  ") + "$line"
+
+            String shaRegex = "^(.*)\trefs/heads/.*\$"
+            String commitSha = line.find(shaRegex) { full, commitSha -> commitSha }
+
+            println "\t" + (selected ? "* " : "  ") + "$line  $commitSha"
             // lines are in the format of: <SHA>\trefs/heads/BRANCH_NAME
             // ex: b9c209a2bf1c159168bf6bc2dfa9540da7e8c4a26\trefs/heads/master
             if (selected) branchNames << branchName
