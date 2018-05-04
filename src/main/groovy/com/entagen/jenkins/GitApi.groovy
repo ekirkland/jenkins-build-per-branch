@@ -43,7 +43,7 @@ class GitApi {
         }
     }
 
-    public String runCommand(GString command) {
+    public String runCommand(String command) {
         println "executing command: $command"
         def process = command.execute()
         def inputStream = process.getInputStream()
