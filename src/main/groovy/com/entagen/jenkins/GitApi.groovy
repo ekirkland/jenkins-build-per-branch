@@ -19,8 +19,8 @@ class GitApi {
             String commitSha = line.find(shaRegex) { full, commitSha -> commitSha }
 
             if(selected) {
-                println runCommand("curl --version");
-                String commitDate = runCommand("curl \"https://api.github.com/repos/axonify/thunderball/git/commits/${commitSha}\"");
+                String gitLogCommand = "/usr/bin/curl \"https://api.github.com/repos/axonify/thunderball/git/commits/${commitSha}\"";
+                String commitDate = runCommand(gitLogCommand);
                 println "\t" + (selected ? "* " : "  ") + "$line   $commitDate"
                 if (selected) branchNames << branchName
             }
@@ -43,7 +43,7 @@ class GitApi {
         }
     }
 
-    public String runCommand(String command) {
+    public String runCommand(GString command) {
         println "executing command: $command"
         def process = command.execute()
         def inputStream = process.getInputStream()
