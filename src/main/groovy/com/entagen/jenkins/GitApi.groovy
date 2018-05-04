@@ -19,6 +19,7 @@ class GitApi {
             String commitSha = line.find(shaRegex) { full, commitSha -> commitSha }
 
             if(selected) {
+                runCommant("curl --version");
                 String commitDate = runCommand("curl \"https://api.github.com/repos/axonify/thunderball/git/commits/${commitSha}\"");
                 println "\t" + (selected ? "* " : "  ") + "$line   $commitDate"
                 if (selected) branchNames << branchName
