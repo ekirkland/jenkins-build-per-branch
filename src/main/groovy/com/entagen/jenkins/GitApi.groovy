@@ -26,8 +26,8 @@ class GitApi {
                 if(gitHubApiUrl && gitHubAccessToken) {
 
                     def response = ["curl", "-H", "Authorization: token ${gitHubAccessToken}", "${gitHubApiUrl}/commits/${commitSha}"].execute().text
-                    def date = new JsonSlurper().parseText(response).commit.author.date;
-                    def duration = new Date() - date
+                    def dateString = new JsonSlurper().parseText(response).commit.author.date;
+                    def duration = new Date() - Date.parse("yyyy-MM-ddTHH:mm:ssZ", dateString)
                     println "Found date: $duration"
                 }
                 println "\t" + (selected ? "* " : "  ") + "$line"
