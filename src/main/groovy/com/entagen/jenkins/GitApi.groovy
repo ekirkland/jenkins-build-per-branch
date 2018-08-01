@@ -26,10 +26,9 @@ class GitApi {
                 if(gitHubApiUrl && gitHubAccessToken) {
 
                     def response = ["curl", "-H", "Authorization: token ${gitHubAccessToken}", "${gitHubApiUrl}/commits/${commitSha}"].execute().text
-                    //String gitLogCommand = '/usr/bin/curl -H "Authorization: token ' + gitHubAccessToken + '" ' + gitHubApiUrl + '/commits/' + commitSha
-                    //String commitDate = runCommand(gitLogCommand);
-                    String date = new JsonSlurper().parseText(response).commit.author.date;
-                    println "Found date: $date"
+                    def date = new JsonSlurper().parseText(response).commit.author.date;
+                    def duration = new Date() - date
+                    println "Found date: $duration"
                 }
                 println "\t" + (selected ? "* " : "  ") + "$line"
                 if (selected) branchNames << branchName
