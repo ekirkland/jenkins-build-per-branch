@@ -23,9 +23,11 @@ class GitApi {
             if(selected) {
                 println "$line"
                 if(gitHubApiUrl && gitHubAccessToken) {
-                    String gitLogCommand = '/usr/bin/curl -H "Authorization: token ' + gitHubAccessToken + '" ' + gitHubApiUrl + '/commits/' + commitSha
-                    String commitDate = runCommand(gitLogCommand);
-                    println "Found date: $commitDate"
+
+                    def response = ["curl", "-H", "Authorization: token ${gitHubAccessToken}", "${gitHubApiUrl}/commits/${commitSha}"].execute().text
+                    //String gitLogCommand = '/usr/bin/curl -H "Authorization: token ' + gitHubAccessToken + '" ' + gitHubApiUrl + '/commits/' + commitSha
+                    //String commitDate = runCommand(gitLogCommand);
+                    println "Found date: $response"
                 }
                 println "\t" + (selected ? "* " : "  ") + "$line"
                 if (selected) branchNames << branchName
