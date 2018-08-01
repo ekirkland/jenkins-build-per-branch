@@ -1,6 +1,7 @@
 package com.entagen.jenkins
 
 import java.util.regex.Pattern
+import groovy.json.JsonSlurper
 
 class GitApi {
     String gitUrl
