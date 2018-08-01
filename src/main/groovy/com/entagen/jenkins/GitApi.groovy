@@ -5,8 +5,8 @@ import java.util.regex.Pattern
 class GitApi {
     String gitUrl
     Pattern branchNameFilter = null
-    String gitHubApiUrl
-    String gitHubAccessToken
+    String gitHubApiUrl = null
+    String gitHubAccessToken = null
 
     public List<String> getBranchNames() {
         String command = "git ls-remote --heads ${gitUrl}"

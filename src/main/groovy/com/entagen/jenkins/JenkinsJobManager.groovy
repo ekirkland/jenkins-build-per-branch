@@ -161,9 +161,13 @@ class JenkinsJobManager {
     GitApi initGitApi() {
         if (!gitApi) {
             assert gitUrl != null
-            this.gitApi = new GitApi(gitUrl: gitUrl, gitHubApiUrl: gitHubApiUrl, gitHubAccessToken: gitHubAccessToken)
+            this.gitApi = new GitApi(gitUrl: gitUrl)
             if (this.branchNameRegex){
                 this.gitApi.branchNameFilter = ~this.branchNameRegex
+            }
+            if(this.gitHubApiUrl && this.gitHubAccessToken) {
+                this.gitApi.gitHubApiUrl = this.gitHubApiUrl
+                this.gitApi.gitHubAccessToken = this.gitHubAccessToken
             }
         }
 
