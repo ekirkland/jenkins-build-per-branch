@@ -5,7 +5,7 @@ import java.util.regex.Pattern
 class GitApi {
     String gitUrl
     Pattern branchNameFilter = null
-    String gitHubApi
+    String gitHubApiUrl
     String gitHubAccessToken
 
     public List<String> getBranchNames() {
@@ -23,7 +23,7 @@ class GitApi {
             if(selected) {
                 println "$line"
                 if(gitHubUrl && accessToken) {
-                    String gitLogCommand = "/usr/bin/curl -H \"Authorization: token ${gitHubAccessToken}\" \"${gitHubApi}/commits/${commitSha}\" | jq -r '.commit.author.date'";
+                    String gitLogCommand = "/usr/bin/curl -H \"Authorization: token ${gitHubAccessToken}\" \"${gitHubApiUrl}/commits/${commitSha}\" | jq -r '.commit.author.date'";
                     Date commitDate = runCommand(gitLogCommand);
                     println "Found date: $commitDate"
                 }
