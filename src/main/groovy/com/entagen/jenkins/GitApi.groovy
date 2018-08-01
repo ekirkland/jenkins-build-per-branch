@@ -28,7 +28,9 @@ class GitApi {
                     def response = ["curl", "-H", "Authorization: token ${gitHubAccessToken}", "${gitHubApiUrl}/commits/${commitSha}"].execute().text
                     def dateString = new JsonSlurper().parseText(response).commit.author.date;
                     def duration = new Date() - Date.parse("yyyy-MM-dd", dateString.substring(0, 10))
-                    println "Found date: ${dateString} ${duration}"
+                    if(duration >= 14) {
+                        selected = false;
+                    }
                 }
                 println "\t" + (selected ? "* " : "  ") + "$line"
                 if (selected) branchNames << branchName
