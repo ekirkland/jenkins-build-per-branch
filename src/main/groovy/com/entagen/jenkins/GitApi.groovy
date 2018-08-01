@@ -5,6 +5,8 @@ import java.util.regex.Pattern
 class GitApi {
     String gitUrl
     Pattern branchNameFilter = null
+    String gitHubApi
+    String gitHubAccessToken
 
     public List<String> getBranchNames() {
         String command = "git ls-remote --heads ${gitUrl}"
@@ -20,8 +22,11 @@ class GitApi {
 
             if(selected) {
                 println "$line"
-                String gitLogCommand = "/usr/bin/curl \"https://api.github.com/repos/axonify/thunderball/git/commits/${commitSha}\"";
-                String commitDate = runCommand(gitLogCommand);
+                if(gitHubUrl && accessToken) {
+                    String gitLogCommand = "/usr/bin/curl -H \"Authorization: token ${gitHubAccessToken}\" \"${gitHubApi}/commits/${commitSha}\" | jq -r '.commit.author.date'";
+                    Date commitDate = runCommand(gitLogCommand);
+                    println "Found date: $commitDate"
+                }
                 println "\t" + (selected ? "* " : "  ") + "$line   $commitDate"
                 if (selected) branchNames << branchName
             }

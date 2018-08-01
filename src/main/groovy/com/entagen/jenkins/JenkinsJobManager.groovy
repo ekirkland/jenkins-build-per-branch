@@ -1,7 +1,5 @@
 package com.entagen.jenkins
 
-import java.util.regex.Pattern
-
 class JenkinsJobManager {
     String templateJobPrefix
     String templateBranchName
@@ -12,6 +10,8 @@ class JenkinsJobManager {
     String viewRegex
     String jenkinsUser
     String jenkinsPassword
+    String gitHubApiUrl
+    String gitHubAccessToken
     
     Boolean dryRun = false
     Boolean noViews = false
@@ -161,7 +161,7 @@ class JenkinsJobManager {
     GitApi initGitApi() {
         if (!gitApi) {
             assert gitUrl != null
-            this.gitApi = new GitApi(gitUrl: gitUrl)
+            this.gitApi = new GitApi(gitUrl: gitUrl, gitHubApiUrl: gitHubApiUrl, gitHubAccessToken: gitHubAccessToken)
             if (this.branchNameRegex){
                 this.gitApi.branchNameFilter = ~this.branchNameRegex
             }
