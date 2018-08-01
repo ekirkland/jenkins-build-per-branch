@@ -27,7 +27,7 @@ class GitApi {
                     Date commitDate = runCommand(gitLogCommand);
                     println "Found date: $commitDate"
                 }
-                println "\t" + (selected ? "* " : "  ") + "$line   $commitDate"
+                println "\t" + (selected ? "* " : "  ") + "$line"
                 if (selected) branchNames << branchName
             }
 
