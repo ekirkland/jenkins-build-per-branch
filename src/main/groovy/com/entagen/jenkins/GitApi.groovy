@@ -23,8 +23,8 @@ class GitApi {
             if(selected) {
                 println "$line"
                 if(gitHubApiUrl && gitHubAccessToken) {
-                    String gitLogCommand = "/usr/bin/curl -H \"Authorization: token ${gitHubAccessToken}\" \"${gitHubApiUrl}/commits/${commitSha}\" | jq -r '.commit.author.date'";
-                    Date commitDate = runCommand(gitLogCommand);
+                    String gitLogCommand = "/usr/bin/curl -H 'Authorization: token ${gitHubAccessToken}' ${gitHubApiUrl}/commits/${commitSha}";
+                    String commitDate = runCommand(gitLogCommand);
                     println "Found date: $commitDate"
                 }
                 println "\t" + (selected ? "* " : "  ") + "$line"
